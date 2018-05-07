@@ -1,7 +1,9 @@
 package com.yalantis.ucrop;
-
+import android.content.pm.PackageManager;
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Animatable;
@@ -9,11 +11,13 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -64,6 +68,7 @@ public class UCropActivity extends AppCompatActivity {
     public static final int SCALE = 1;
     public static final int ROTATE = 2;
     public static final int ALL = 3;
+    private static final int PERMISSION_REQUEST_CAMERA = 1;
 
     @IntDef({NONE, SCALE, ROTATE, ALL})
     @Retention(RetentionPolicy.SOURCE)
@@ -98,7 +103,7 @@ public class UCropActivity extends AppCompatActivity {
     private UCropView mUCropView;
     private GestureCropImageView mGestureCropImageView;
     private OverlayView mOverlayView;
-    private ViewGroup mWrapperStateAspectRatio, mWrapperStateRotate, mWrapperStateScale;
+    private ViewGroup mWrapperStateAspectRatio, mWrapperStateRotate, mWrapperStateScale , mCamera, mGallery;
     private ViewGroup mLayoutAspectRatio, mLayoutRotate, mLayoutScale;
     private List<ViewGroup> mCropAspectRatioViews = new ArrayList<>();
     private TextView mTextViewRotateAngle, mTextViewScalePercent;
@@ -291,12 +296,30 @@ public class UCropActivity extends AppCompatActivity {
             mWrapperStateAspectRatio = findViewById(R.id.state_aspect_ratio);
             mWrapperStateAspectRatio.setOnClickListener(mStateClickListener);
             mWrapperStateRotate = findViewById(R.id.state_rotate);
+            //TODO HERE
             mWrapperStateRotate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     rotateByAngle(90);
                 }
             });
+            mCamera = findViewById(R.id.camera);
+            mCamera.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("CAMERA","CAMERA CLIK");
+                    //requestCameraPermission();
+                }
+            });
+
+            mGallery = findViewById(R.id.gallery);
+            mGallery.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("gallery","gallery CLIK");
+                }
+            });
+
             mWrapperStateScale = findViewById(R.id.state_scale);
             mWrapperStateScale.setOnClickListener(mStateClickListener);
 
@@ -613,5 +636,37 @@ public class UCropActivity extends AppCompatActivity {
     protected void setResultError(Throwable throwable) {
         setResult(UCrop.RESULT_ERROR, new Intent().putExtra(UCrop.EXTRA_ERROR, throwable));
     }
+
+
+
+    /*private void requestCameraPermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                startCamera();
+            } else {
+                requestCameraPermission();
+            }
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST_CAMERA);
+        }
+
+
+    }*/
+
+
+    /*private void startCamera() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, PERMISSION_REQUEST_CAMERA);
+        }
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PERMISSION_REQUEST_CAMERA && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Log.d("LIBRARY","RESULT CODE");
+
+        }
+    }*/
 
 }
