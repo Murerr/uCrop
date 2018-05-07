@@ -307,7 +307,7 @@ public class UCropActivity extends AppCompatActivity {
             mCamera.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("CAMERA","CAMERA CLIK");
+                  //  Log.d("CAMERA","CAMERA CLIK");
                     //requestCameraPermission();
                 }
             });
@@ -316,7 +316,7 @@ public class UCropActivity extends AppCompatActivity {
             mGallery.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("gallery","gallery CLIK");
+                   // Log.d("gallery","gallery CLIK");
                 }
             });
 

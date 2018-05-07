@@ -14,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,13 @@ public class UCropFragment extends Fragment {
     public static final int SCALE = 1;
     public static final int ROTATE = 2;
     public static final int ALL = 3;
+
+    public void ucropCamera(View view) {
+        Log.d("ucropCamera","UcropCameraClicked");
+    }
+    public void ucropGallery(View view) {
+        Log.d("ucropCamera","UcropCameraClicked");
+    }
 
     @IntDef({NONE, SCALE, ROTATE, ALL})
     @Retention(RetentionPolicy.SOURCE)
