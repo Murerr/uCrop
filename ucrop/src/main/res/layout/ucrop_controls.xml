@@ -6,22 +6,26 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/ucrop_height_wrapper_controls"
         android:layout_above="@+id/wrapper_states"
-        android:background="@color/ucrop_color_widget_background">
+        android:background="@color/ucrop_color_widget_background"
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/layout_aspect_ratio"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal"
+            android:visibility="gone"/>
 
         <include
             android:id="@+id/layout_rotate_wheel"
-            layout="@layout/ucrop_layout_rotate_wheel"/>
+            layout="@layout/ucrop_layout_rotate_wheel"
+            android:visibility="gone"/>
 
         <include
             android:id="@+id/layout_scale_wheel"
-            layout="@layout/ucrop_layout_scale_wheel"/>
+            layout="@layout/ucrop_layout_scale_wheel"
+            android:visibility="gone"/>
 
     </FrameLayout>
 
@@ -70,7 +74,7 @@
             <ImageView
                 android:id="@+id/image_view_state_rotate"
                 style="@style/ucrop_ImageViewWidgetIcon"
-                android:src="@drawable/ucrop_ic_rotate"/>
+                android:src="@drawable/ucrop_ic_angle"/>
 
         </FrameLayout>
 
