@@ -196,7 +196,6 @@ public class UCropActivity extends AppCompatActivity {
             finish();
         }
     }
-
     /**
      * This method extracts {@link com.yalantis.ucrop.UCrop.Options #optionsBundle} from incoming intent
      * and setups Activity, {@link OverlayView} and {@link CropImageView} properly.
@@ -292,7 +291,12 @@ public class UCropActivity extends AppCompatActivity {
             mWrapperStateAspectRatio = findViewById(R.id.state_aspect_ratio);
             mWrapperStateAspectRatio.setOnClickListener(mStateClickListener);
             mWrapperStateRotate = findViewById(R.id.state_rotate);
-            mWrapperStateRotate.setOnClickListener(mStateClickListener);
+            mWrapperStateRotate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    rotateByAngle(90);
+                }
+            });
             mWrapperStateScale = findViewById(R.id.state_scale);
             mWrapperStateScale.setOnClickListener(mStateClickListener);
 
@@ -383,12 +387,7 @@ public class UCropActivity extends AppCompatActivity {
         ImageView stateAspectRatioImageView = findViewById(R.id.image_view_state_aspect_ratio);
 
         stateScaleImageView.setImageDrawable(new SelectedStateListDrawable(stateScaleImageView.getDrawable(), mActiveWidgetColor));
-        stateRotateImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rotateByAngle(90);
-            }
-        });
+
         stateAspectRatioImageView.setImageDrawable(new SelectedStateListDrawable(stateAspectRatioImageView.getDrawable(), mActiveWidgetColor));
     }
 
