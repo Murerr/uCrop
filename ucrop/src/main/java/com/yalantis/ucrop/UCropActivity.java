@@ -17,6 +17,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -68,8 +69,10 @@ public class UCropActivity extends AppCompatActivity {
     public static final int SCALE = 1;
     public static final int ROTATE = 2;
     public static final int ALL = 3;
-    private static final int PERMISSION_REQUEST_CAMERA = 1;
-
+    private static final int PERMISSION_REQUEST_CAMERA = 101;
+    private static final int PERMISSION_REQUEST_GALLERY = 202;
+    private static final int CAMERA = 1;
+    private static final int PICK_IMAGE = 2;
     @IntDef({NONE, SCALE, ROTATE, ALL})
     @Retention(RetentionPolicy.SOURCE)
     public @interface GestureTypes {
@@ -307,16 +310,18 @@ public class UCropActivity extends AppCompatActivity {
             mCamera.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                  //  Log.d("CAMERA","CAMERA CLIK");
-                    //requestCameraPermission();
+
+                    requestCameraPermission();
                 }
             });
 
             mGallery = findViewById(R.id.gallery);
             mGallery.setOnClickListener(new View.OnClickListener() {
+                @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
                 @Override
                 public void onClick(View v) {
-                   // Log.d("gallery","gallery CLIK");
+
+                    requestGalleryPermission();
                 }
             });
 
@@ -639,9 +644,9 @@ public class UCropActivity extends AppCompatActivity {
 
 
 
-    /*private void requestCameraPermission() {
+    private void requestCameraPermission() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                 startCamera();
             } else {
                 requestCameraPermission();
@@ -652,21 +657,55 @@ public class UCropActivity extends AppCompatActivity {
         }
 
 
-    }*/
+    }
 
 
-    /*private void startCamera() {
+    private void startCamera() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, PERMISSION_REQUEST_CAMERA);
+            startActivityForResult(takePictureIntent, CAMERA);
         }
     }
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    /*protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PERMISSION_REQUEST_CAMERA && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Log.d("LIBRARY","RESULT CODE");
 
         }
     }*/
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    private void requestGalleryPermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                startGallery();
+            } else {
+                requestGalleryPermission();
+            }
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_GALLERY);
+        }
+
+
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    private void startGallery() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT)
+                .setType("image/*")
+                .addCategory(Intent.CATEGORY_OPENABLE);
+
+        String[] mimeTypes = {"image/jpeg","image/png"};
+
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+        if(intent.resolveActivity(getPackageManager()) != null) {
+            //startActivityForResult(this, Intent.createChooser(intent, getString(R.string.ucrop_label_select_picture)), PICK_IMAGE);
+            startActivityForResult(intent, PICK_IMAGE);
+        }
+        
+    }
+
 
 }

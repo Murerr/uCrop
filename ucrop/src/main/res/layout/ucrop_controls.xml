@@ -87,7 +87,7 @@
                 android:src="@mipmap/ucrop_camera"/>
         </FrameLayout>
         <FrameLayout
-            android:id="@+id/ucropGallery"
+            android:id="@+id/gallery"
             style="@style/ucrop_WrapperIconState">
 
             <ImageView
