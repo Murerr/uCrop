@@ -8,9 +8,11 @@ import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
+import android.icu.util.Calendar;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
@@ -49,6 +51,7 @@ import com.yalantis.ucrop.view.UCropView;
 import com.yalantis.ucrop.view.widget.AspectRatioTextView;
 import com.yalantis.ucrop.view.widget.HorizontalProgressWheelView;
 
+import java.io.File;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
@@ -666,13 +669,34 @@ public class UCropActivity extends AppCompatActivity {
             startActivityForResult(takePictureIntent, CAMERA);
         }
     }
-    /*protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == PERMISSION_REQUEST_CAMERA && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Log.d("LIBRARY","RESULT CODE");
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data != null  && resultCode == RESULT_OK && requestCode == PICK_IMAGE || requestCode == CAMERA ) {
+            finish(); // finish old crop
+            Uri sourceuri = data.getData();
+            String fileUri = (Calendar.getInstance().getTimeInMillis()) + ".png";
+            UCrop ucrop = UCrop.of(sourceuri,Uri.fromFile(new File(Environment.getExternalStorageDirectory(), fileUri)));
+            ucrop.withAspectRatio(1024, 506)
+                    .withOptions(createOptions())
+                    .start(this);
+
 
         }
-    }*/
+    }
+
+    private UCrop.Options createOptions() {
+
+        UCrop.Options options = new UCrop.Options();
+        options.setAllowedGestures(UCropActivity.SCALE, UCropActivity.NONE, UCropActivity.ALL);
+        options.setToolbarColor(ContextCompat.getColor(this, R.color.ucrop_rouge));
+        options.setStatusBarColor(ContextCompat.getColor(this, R.color.ucrop_rougeFonce));
+        options.setActiveWidgetColor(ContextCompat.getColor(this, R.color.ucrop_rouge));
+        options.setShowCropGrid(false);
+        options.setToolbarCancelDrawable(R.mipmap.back_arrow);
+        options.setToolbarCropDrawable(R.mipmap.crop_save_icon);
+
+        return options;
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void requestGalleryPermission() {

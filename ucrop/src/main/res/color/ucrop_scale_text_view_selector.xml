@@ -3,3 +3,5 @@
     <item android:color="@color/ucrop_color_widget_active" android:state_selected="true"/>
     <item android:color="@color/ucrop_color_widget"/>
 </selector>
+
+

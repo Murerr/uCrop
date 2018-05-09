@@ -286,7 +286,6 @@ public class UCropFragment extends Fragment {
         }
 
     };
-
     /**
      * Use {@link #mActiveWidgetColor} for color filter
      */
