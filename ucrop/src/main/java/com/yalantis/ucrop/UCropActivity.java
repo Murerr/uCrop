@@ -671,16 +671,18 @@ public class UCropActivity extends AppCompatActivity {
     }
     @RequiresApi(api = Build.VERSION_CODES.N)
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (data != null  && resultCode == RESULT_OK && requestCode == PICK_IMAGE || requestCode == CAMERA ) {
-            finish(); // finish old crop
-            Uri sourceuri = data.getData();
-            String fileUri = (Calendar.getInstance().getTimeInMillis()) + ".png";
-            UCrop ucrop = UCrop.of(sourceuri,Uri.fromFile(new File(Environment.getExternalStorageDirectory(), fileUri)));
-            ucrop.withAspectRatio(1024, 506)
-                    .withOptions(createOptions())
-                    .start(this);
+        if (data != null && resultCode == RESULT_OK) {
+            if (requestCode == PICK_IMAGE || requestCode == CAMERA) {
+                finish(); // finish old crop
+                Uri sourceuri = data.getData();
+                String fileUri = (Calendar.getInstance().getTimeInMillis()) + ".png";
+                UCrop ucrop = UCrop.of(sourceuri, Uri.fromFile(new File(Environment.getExternalStorageDirectory(), fileUri)));
+                ucrop.withAspectRatio(1024, 506)
+                        .withOptions(createOptions())
+                        .start(this);
 
 
+            }
         }
     }
 
