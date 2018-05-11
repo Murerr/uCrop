@@ -56,6 +56,7 @@ public class UCropFragment extends Fragment {
     public static final int SCALE = 1;
     public static final int ROTATE = 2;
     public static final int ALL = 3;
+    public FrameLayout camera;
 
 
 
@@ -116,8 +117,9 @@ public class UCropFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.ucrop_fragment_photobox, container, false);
-
+        Log.d("Sur","qui s'affiche");
         Bundle args = getArguments();
+        camera = (FrameLayout)rootView.findViewById(R.id.camera);
 
         setupViews(rootView, args);
         setImageData(args);
@@ -173,6 +175,13 @@ public class UCropFragment extends Fragment {
              //TODO
             mCamera = view.findViewById(R.id.camera);
             mGallery =view.findViewById(R.id.gallery);
+            mCamera.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("appel","méthodé");
+                    ucropFragmentCamera();
+                }
+            });
 
 
             setupAspectRatioWidget(args, view);
@@ -180,6 +189,10 @@ public class UCropFragment extends Fragment {
             setupScaleWidget(view);
             setupStatesWrapper(view);
         }
+    }
+
+    public void ucropFragmentCamera() {
+        Log.d("fragment","appel");
     }
 
 
