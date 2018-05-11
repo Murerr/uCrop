@@ -279,7 +279,7 @@ public class UCropActivity extends AppCompatActivity {
         }
     }
 
-    private void setupViews(@NonNull Intent intent) {
+    private void setupViews(@NonNull final Intent intent) {
         mStatusBarColor = intent.getIntExtra(UCrop.Options.EXTRA_STATUS_BAR_COLOR, ContextCompat.getColor(this, R.color.ucrop_color_statusbar));
         mToolbarColor = intent.getIntExtra(UCrop.Options.EXTRA_TOOL_BAR_COLOR, ContextCompat.getColor(this, R.color.ucrop_color_toolbar));
         mActiveWidgetColor = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_COLOR_WIDGET_ACTIVE, ContextCompat.getColor(this, R.color.ucrop_color_widget_active));
@@ -313,7 +313,8 @@ public class UCropActivity extends AppCompatActivity {
             mCamera.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setResult(UCrop.START_CAMERA);
+                    Intent intent = new Intent();
+                    setResult(UCrop.START_CAMERA,intent);
                     finish();
                 }
             });
@@ -322,7 +323,8 @@ public class UCropActivity extends AppCompatActivity {
             mGallery.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setResult(UCrop.START_GALLERY);
+                    Intent intent = new Intent();
+                    setResult(UCrop.START_GALLERY,intent);
                     finish();
                 }
             });
