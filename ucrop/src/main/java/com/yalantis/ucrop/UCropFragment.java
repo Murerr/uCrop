@@ -128,13 +128,11 @@ public class UCropFragment extends Fragment {
             public void onClick(View v) {
                 Log.d("Un message","Truc");
                 ucropCamera();
-
             }
         });
         rootView.findViewById(R.id.gallery).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 ucropGallery();
             }
         });
