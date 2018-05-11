@@ -309,6 +309,24 @@ public class UCropActivity extends AppCompatActivity {
                     rotateByAngle(90);
                 }
             });
+            mCamera = findViewById(R.id.camera);
+            mCamera.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    ucropActivityCamera();
+                }
+            });
+
+            mGallery = findViewById(R.id.gallery);
+            mGallery.setOnClickListener(new View.OnClickListener() {
+                @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+                @Override
+                public void onClick(View v) {
+
+                    ucropActivityGallery();
+                }
+            });
 
 
             mWrapperStateScale = findViewById(R.id.state_scale);
@@ -323,6 +341,15 @@ public class UCropActivity extends AppCompatActivity {
             setupScaleWidget();
             setupStatesWrapper();
         }
+    }
+    //TODO OVERRIDE METHOD
+    public void ucropActivityCamera(){
+        Log.d(TAG,"DO SOMETHING");
+
+    }
+
+    public void ucropActivityGallery(){
+        Log.d(TAG,"DO SOMETHING");
     }
 
     /**

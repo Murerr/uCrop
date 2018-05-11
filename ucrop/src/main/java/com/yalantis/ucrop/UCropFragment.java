@@ -162,7 +162,7 @@ public class UCropFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-                    ucropFragmentCamera();
+                    //ucropFragmentCamera();
                 }
             });
 
@@ -172,7 +172,7 @@ public class UCropFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-                    ucropFragmentGallery();
+                    //ucropFragmentGallery();
                 }
             });
 
@@ -181,16 +181,16 @@ public class UCropFragment extends Fragment {
             setupScaleWidget(view);
             setupStatesWrapper(view);
         }
-    }
+    }/*
     //TODO OVERRIDE METHOD
-    public void ucropFragmentCamera(){
+    public void ucropActivityCamera(){
         Log.d(TAG,"DO SOMETHING");
 
     }
 
-    public void ucropFragmentGallery(){
+    public void ucropActivityGallery(){
         Log.d(TAG,"DO SOMETHING");
-    }
+    }*/
 
     private void setImageData(@NonNull Bundle bundle) {
         Uri inputUri = bundle.getParcelable(UCrop.EXTRA_INPUT_URI);
