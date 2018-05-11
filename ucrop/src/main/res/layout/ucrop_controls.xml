@@ -78,7 +78,7 @@
         </FrameLayout>
         <FrameLayout
             android:id="@+id/camera"
-            android:onClick="ucropCamera"
+
             style="@style/ucrop_WrapperIconState">
 
             <ImageView

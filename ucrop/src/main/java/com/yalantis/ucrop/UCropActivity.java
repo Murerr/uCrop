@@ -314,7 +314,7 @@ public class UCropActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    ucropActivityCamera();
+                    ucropCamera();
                 }
             });
 
@@ -324,7 +324,7 @@ public class UCropActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    ucropActivityGallery();
+                    ucropGallery();
                 }
             });
 
@@ -342,15 +342,13 @@ public class UCropActivity extends AppCompatActivity {
             setupStatesWrapper();
         }
     }
-    //TODO OVERRIDE METHOD
-    public void ucropActivityCamera(){
-        Log.d(TAG,"DO SOMETHING");
 
+    public void ucropCamera() {
     }
 
-    public void ucropActivityGallery(){
-        Log.d(TAG,"DO SOMETHING");
+    public void ucropGallery() {
     }
+
 
     /**
      * Configures and styles both status bar and toolbar.

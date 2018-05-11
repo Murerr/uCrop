@@ -428,6 +428,8 @@ public class SampleActivity extends BaseActivity implements UCropFragmentCallbac
         removeFragmentFromScreen();
     }
 
+
+
     public void removeFragmentFromScreen() {
         getSupportFragmentManager().beginTransaction()
                 .remove(fragment)

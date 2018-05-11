@@ -57,12 +57,7 @@ public class UCropFragment extends Fragment {
     public static final int ROTATE = 2;
     public static final int ALL = 3;
 
-    public void ucropCamera(View view) {
-        Log.d("ucropCamera","UcropCameraClicked");
-    }
-    public void ucropGallery(View view) {
-        Log.d("ucropCamera","UcropCameraClicked");
-    }
+
 
     @IntDef({NONE, SCALE, ROTATE, ALL})
     @Retention(RetentionPolicy.SOURCE)
@@ -131,17 +126,26 @@ public class UCropFragment extends Fragment {
         rootView.findViewById(R.id.camera).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ucropFragmentCamera();
+                Log.d("Un message","Truc");
+                ucropCamera();
+
             }
         });
         rootView.findViewById(R.id.gallery).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ucropFragmentGallery();
+
+                ucropGallery();
             }
         });
 
         return rootView;
+    }
+
+    public void ucropCamera() {
+    }
+
+    public void ucropGallery() {
     }
 
 
@@ -179,15 +183,7 @@ public class UCropFragment extends Fragment {
             setupStatesWrapper(view);
         }
     }
-    //TODO OVERRIDE METHOD
-    public void ucropFragmentCamera(){
-        Log.d(TAG,"DO SOMETHING");
 
-    }
-
-    public void ucropFragmentGallery(){
-        Log.d(TAG,"DO SOMETHING");
-    }
 
     private void setImageData(@NonNull Bundle bundle) {
         Uri inputUri = bundle.getParcelable(UCrop.EXTRA_INPUT_URI);
@@ -377,14 +373,7 @@ public class UCropFragment extends Fragment {
             });
         }
     }
-    //TODO setUpcamera widget
-    private void setupCameraWidget(View view){
 
-    }
-
-    private void setupGalleryWidget(View view){
-
-    }
 
     private void setupRotateWidget(View view) {
         mTextViewRotateAngle = view.findViewById(R.id.text_view_rotate);

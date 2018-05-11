@@ -14,4 +14,6 @@ public interface UCropFragmentCallback {
      */
     void onCropFinish(UCropFragment.UCropResult result);
 
+
+
 }
