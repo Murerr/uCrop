@@ -313,8 +313,8 @@ public class UCropActivity extends AppCompatActivity {
             mCamera.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    finishActivity(UCrop.START_CAMERA);
-
+                    setResult(UCrop.START_CAMERA);
+                    finish();
                 }
             });
 
@@ -322,8 +322,8 @@ public class UCropActivity extends AppCompatActivity {
             mGallery.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    finishActivity(UCrop.START_GALLERY);
-
+                    setResult(UCrop.START_GALLERY);
+                    finish();
                 }
             });
 
