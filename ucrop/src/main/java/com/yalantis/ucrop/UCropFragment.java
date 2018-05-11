@@ -128,6 +128,18 @@ public class UCropFragment extends Fragment {
         setImageData(args);
         setInitialState();
         addBlockingView(rootView);
+        rootView.findViewById(R.id.camera).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ucropFragmentCamera();
+            }
+        });
+        rootView.findViewById(R.id.gallery).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ucropFragmentGallery();
+            }
+        });
 
         return rootView;
     }
@@ -158,39 +170,24 @@ public class UCropFragment extends Fragment {
             mLayoutScale = view.findViewById(R.id.layout_scale_wheel);
              //TODO
             mCamera = view.findViewById(R.id.camera);
-            mCamera.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            mGallery =view.findViewById(R.id.gallery);
 
-                    //ucropFragmentCamera();
-                }
-            });
-
-            mGallery = view.findViewById(R.id.gallery);
-            mGallery.setOnClickListener(new View.OnClickListener() {
-                @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-                @Override
-                public void onClick(View v) {
-
-                    //ucropFragmentGallery();
-                }
-            });
 
             setupAspectRatioWidget(args, view);
             setupRotateWidget(view);
             setupScaleWidget(view);
             setupStatesWrapper(view);
         }
-    }/*
+    }
     //TODO OVERRIDE METHOD
-    public void ucropActivityCamera(){
+    public void ucropFragmentCamera(){
         Log.d(TAG,"DO SOMETHING");
 
     }
 
-    public void ucropActivityGallery(){
+    public void ucropFragmentGallery(){
         Log.d(TAG,"DO SOMETHING");
-    }*/
+    }
 
     private void setImageData(@NonNull Bundle bundle) {
         Uri inputUri = bundle.getParcelable(UCrop.EXTRA_INPUT_URI);
@@ -379,6 +376,14 @@ public class UCropFragment extends Fragment {
                 }
             });
         }
+    }
+    //TODO setUpcamera widget
+    private void setupCameraWidget(View view){
+
+    }
+
+    private void setupGalleryWidget(View view){
+
     }
 
     private void setupRotateWidget(View view) {
