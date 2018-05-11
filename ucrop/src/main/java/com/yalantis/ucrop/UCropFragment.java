@@ -1,10 +1,12 @@
 package com.yalantis.ucrop;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.IdRes;
@@ -84,7 +86,7 @@ public class UCropFragment extends Fragment {
     private UCropView mUCropView;
     private GestureCropImageView mGestureCropImageView;
     private OverlayView mOverlayView;
-    private ViewGroup mWrapperStateAspectRatio, mWrapperStateRotate, mWrapperStateScale;
+    private ViewGroup mWrapperStateAspectRatio, mWrapperStateRotate, mWrapperStateScale , mCamera , mGallery;
     private ViewGroup mLayoutAspectRatio, mLayoutRotate, mLayoutScale;
     private List<ViewGroup> mCropAspectRatioViews = new ArrayList<>();
     private TextView mTextViewRotateAngle, mTextViewScalePercent;
@@ -154,12 +156,40 @@ public class UCropFragment extends Fragment {
             mLayoutAspectRatio = view.findViewById(R.id.layout_aspect_ratio);
             mLayoutRotate = view.findViewById(R.id.layout_rotate_wheel);
             mLayoutScale = view.findViewById(R.id.layout_scale_wheel);
+             //TODO
+            mCamera = view.findViewById(R.id.camera);
+            mCamera.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    ucropFragmentCamera();
+                }
+            });
+
+            mGallery = view.findViewById(R.id.gallery);
+            mGallery.setOnClickListener(new View.OnClickListener() {
+                @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+                @Override
+                public void onClick(View v) {
+
+                    ucropFragmentGallery();
+                }
+            });
 
             setupAspectRatioWidget(args, view);
             setupRotateWidget(view);
             setupScaleWidget(view);
             setupStatesWrapper(view);
         }
+    }
+    //TODO OVERRIDE METHOD
+    public void ucropFragmentCamera(){
+        Log.d(TAG,"DO SOMETHING");
+
+    }
+
+    public void ucropFragmentGallery(){
+        Log.d(TAG,"DO SOMETHING");
     }
 
     private void setImageData(@NonNull Bundle bundle) {

@@ -309,24 +309,7 @@ public class UCropActivity extends AppCompatActivity {
                     rotateByAngle(90);
                 }
             });
-            mCamera = findViewById(R.id.camera);
-            mCamera.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
-                    requestCameraPermission();
-                }
-            });
-
-            mGallery = findViewById(R.id.gallery);
-            mGallery.setOnClickListener(new View.OnClickListener() {
-                @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-                @Override
-                public void onClick(View v) {
-
-                    requestGalleryPermission();
-                }
-            });
 
             mWrapperStateScale = findViewById(R.id.state_scale);
             mWrapperStateScale.setOnClickListener(mStateClickListener);
