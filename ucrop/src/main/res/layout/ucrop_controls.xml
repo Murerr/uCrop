@@ -89,7 +89,7 @@
             <ImageView
                 android:id="@+id/image_view_camera"
                 style="@style/ucrop_ImageViewWidgetIcon"
-                app:srcCompat="@drawable/ucrop_add_photo"/>
+                 android:src="@mipmap/ucrop_add_a_photo"/>
         </FrameLayout>
         <FrameLayout
             android:id="@+id/gallery"
@@ -98,7 +98,7 @@
             <ImageView
                 android:id="@+id/image_view_gallery"
                 style="@style/ucrop_ImageViewWidgetIcon"
-                app:srcCompat="@drawable/ucrop_add_image_gallery"/>
+                android:src="@mipmap/ucrop_add_a_photo_gallery"/>
         </FrameLayout>
 
 
