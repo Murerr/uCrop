@@ -268,7 +268,6 @@ public class UCropActivity extends AppCompatActivity {
         } else {
             mGestureCropImageView.setTargetAspectRatio(CropImageView.SOURCE_IMAGE_ASPECT_RATIO);
         }
-
         // Result bitmap max size options
         int maxSizeX = intent.getIntExtra(UCrop.EXTRA_MAX_SIZE_X, 0);
         int maxSizeY = intent.getIntExtra(UCrop.EXTRA_MAX_SIZE_Y, 0);
@@ -291,10 +290,8 @@ public class UCropActivity extends AppCompatActivity {
         mLogoColor = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_LOGO_COLOR, ContextCompat.getColor(this, R.color.ucrop_color_default_logo));
         mShowBottomControls = !intent.getBooleanExtra(UCrop.Options.EXTRA_HIDE_BOTTOM_CONTROLS, false);
         mRootViewBackgroundColor = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_ROOT_VIEW_BACKGROUND_COLOR, ContextCompat.getColor(this, R.color.ucrop_color_crop_background));
-
         setupAppBar();
         initiateRootViews();
-
         if (mShowBottomControls) {
             ViewGroup photoBox = findViewById(R.id.ucrop_photobox);
             View.inflate(this, R.layout.ucrop_controls, photoBox);
@@ -309,6 +306,8 @@ public class UCropActivity extends AppCompatActivity {
                     rotateByAngle(90);
                 }
             });
+            /*
+            * close activity and start intent camera*/
             mCamera = findViewById(R.id.camera);
             mCamera.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -318,7 +317,7 @@ public class UCropActivity extends AppCompatActivity {
                     finish();
                 }
             });
-
+            /* close activity and start intent gallery*/
             mGallery = findViewById(R.id.gallery);
             mGallery.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -328,8 +327,6 @@ public class UCropActivity extends AppCompatActivity {
                     finish();
                 }
             });
-
-
 
             mWrapperStateScale = findViewById(R.id.state_scale);
             mWrapperStateScale.setOnClickListener(mStateClickListener);

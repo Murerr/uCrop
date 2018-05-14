@@ -190,7 +190,7 @@ public class ResultActivity extends BaseActivity {
                 .setContentTitle(getString(R.string.app_name))
                 .setContentText(getString(R.string.notification_image_saved_click_to_preview))
                 .setTicker(getString(R.string.notification_image_saved))
-                .setSmallIcon(R.drawable.ic_done)
+                .setSmallIcon(R.drawable.ic_file_download)
                 .setOngoing(false)
                 .setContentIntent(PendingIntent.getActivity(this, 0, intent, 0))
                 .setAutoCancel(true);
