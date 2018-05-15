@@ -109,7 +109,7 @@ public class UCropActivity extends AppCompatActivity {
     private UCropView mUCropView;
     private GestureCropImageView mGestureCropImageView;
     private OverlayView mOverlayView;
-    private ViewGroup mWrapperStateAspectRatio, mWrapperStateRotate, mWrapperStateScale , mCamera, mGallery;
+    private ViewGroup mWrapperStateAspectRatio, mWrapperStateRotate, mWrapperStateScale , mCamera, mGallery, mTrash;
     private ViewGroup mLayoutAspectRatio, mLayoutRotate, mLayoutScale;
     private List<ViewGroup> mCropAspectRatioViews = new ArrayList<>();
     private TextView mTextViewRotateAngle, mTextViewScalePercent;
@@ -324,6 +324,16 @@ public class UCropActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent intent = new Intent();
                     setResult(UCrop.START_GALLERY,intent);
+                    finish();
+                }
+            });
+
+            mTrash = findViewById(R.id.trash);
+            mTrash.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    setResult(UCrop.DELETE_GALLERY,intent);
                     finish();
                 }
             });

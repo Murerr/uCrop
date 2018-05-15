@@ -34,6 +34,7 @@ public class UCrop {
     public static final int RESULT_ERROR = 96;
     public static final int START_CAMERA = 9011;
     public static final int START_GALLERY = 9012;
+    public static final int DELETE_GALLERY = 9013;
     public static final int MIN_SIZE = 10;
 
     private static final String EXTRA_PREFIX = BuildConfig.APPLICATION_ID;

@@ -103,6 +103,16 @@
                 style="@style/ucrop_ImageViewWidgetIcon"
                 android:src="@mipmap/ucrop_add_a_photo_gallery" />
         </FrameLayout>
+        <FrameLayout
+            android:id="@+id/trash"
+            style="@style/ucrop_WrapperIconState"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/image_view_trash"
+                style="@style/ucrop_ImageViewWidgetIcon"
+                android:src="@mipmap/ucrop_trash" />
+        </FrameLayout>
 
 
     </LinearLayout>
