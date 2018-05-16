@@ -39,6 +39,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yalantis.ucrop.callback.BitmapCropCallback;
 import com.yalantis.ucrop.model.AspectRatio;
@@ -316,6 +317,8 @@ public class UCropActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     ISPHOTOREMOVED = false;
+                    mWrapperStateRotate.setVisibility(View.VISIBLE);
+                    mTrash.setVisibility(View.VISIBLE);
                     Intent intent = new Intent();
                     setResult(UCrop.START_CAMERA,intent);
                     finish();
@@ -327,6 +330,8 @@ public class UCropActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     ISPHOTOREMOVED = false;
+                    mWrapperStateRotate.setVisibility(View.VISIBLE);
+                    mTrash.setVisibility(View.VISIBLE);
                     Intent intent = new Intent();
                     setResult(UCrop.START_GALLERY,intent);
                     finish();
@@ -340,6 +345,11 @@ public class UCropActivity extends AppCompatActivity {
                     //UCrop.EXTRA_OUTPUT_URI = null
                     ISPHOTOREMOVED = true;
                     mGestureCropImageView.setVisibility(View.GONE);
+                    mWrapperStateRotate.setVisibility(View.GONE);
+                    mTrash.setVisibility(View.GONE);
+                    CharSequence text = "Photo supprimée,\n Veuillez selectionner une image avec les commandes ci-dessous";
+                    Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+
 
                 }
             });
@@ -651,7 +661,7 @@ public class UCropActivity extends AppCompatActivity {
     protected void setResultUri(Uri uri, float resultAspectRatio, int offsetX, int offsetY, int imageWidth, int imageHeight) {
         if (ISPHOTOREMOVED){
             setResult(UCrop.DELETE_GALLERY,new Intent());
-            finish();
+            finish(); // change?
         }
         else if (!ISPHOTOREMOVED){
         setResult(RESULT_OK, new Intent()
