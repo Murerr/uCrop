@@ -125,6 +125,7 @@ public class UCropActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ucrop_activity_photobox);
+        ISPHOTOREMOVED = false;
 
         final Intent intent = getIntent();
 
