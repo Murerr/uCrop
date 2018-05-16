@@ -89,6 +89,7 @@ public class UCropActivity extends AppCompatActivity {
     private static final int ROTATE_WIDGET_SENSITIVITY_COEFFICIENT = 42;
 
     private String mToolbarTitle;
+    private static boolean ISPHOTOREMOVED = false;
 
     // Enables dynamic coloring
     private int mToolbarColor;
@@ -114,7 +115,7 @@ public class UCropActivity extends AppCompatActivity {
     private List<ViewGroup> mCropAspectRatioViews = new ArrayList<>();
     private TextView mTextViewRotateAngle, mTextViewScalePercent;
     private View mBlockingView;
-    private boolean isPhotoRemoved = false;
+
 
     private Bitmap.CompressFormat mCompressFormat = DEFAULT_COMPRESS_FORMAT;
     private int mCompressQuality = DEFAULT_COMPRESS_QUALITY;
@@ -313,7 +314,7 @@ public class UCropActivity extends AppCompatActivity {
             mCamera.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    isPhotoRemoved = false;
+                    ISPHOTOREMOVED = false;
                     Intent intent = new Intent();
                     setResult(UCrop.START_CAMERA,intent);
                     finish();
@@ -324,7 +325,7 @@ public class UCropActivity extends AppCompatActivity {
             mGallery.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    isPhotoRemoved = false;
+                    ISPHOTOREMOVED = false;
                     Intent intent = new Intent();
                     setResult(UCrop.START_GALLERY,intent);
                     finish();
@@ -336,9 +337,8 @@ public class UCropActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     //UCrop.EXTRA_OUTPUT_URI = null
-                    isPhotoRemoved = true;
+                    ISPHOTOREMOVED = true;
                     mGestureCropImageView.setVisibility(View.GONE);
-
 
                 }
             });
@@ -648,9 +648,11 @@ public class UCropActivity extends AppCompatActivity {
     }
 
     protected void setResultUri(Uri uri, float resultAspectRatio, int offsetX, int offsetY, int imageWidth, int imageHeight) {
-        if (isPhotoRemoved = true){
+        if (ISPHOTOREMOVED){
             setResult(UCrop.DELETE_GALLERY,new Intent());
-        } else{
+            finish();
+        }
+        else if (!ISPHOTOREMOVED){
         setResult(RESULT_OK, new Intent()
                 .putExtra(UCrop.EXTRA_OUTPUT_URI, uri)
                 .putExtra(UCrop.EXTRA_OUTPUT_CROP_ASPECT_RATIO, resultAspectRatio)
