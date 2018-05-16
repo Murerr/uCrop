@@ -114,6 +114,7 @@ public class UCropActivity extends AppCompatActivity {
     private List<ViewGroup> mCropAspectRatioViews = new ArrayList<>();
     private TextView mTextViewRotateAngle, mTextViewScalePercent;
     private View mBlockingView;
+    private boolean isPhotoRemoved = false;
 
     private Bitmap.CompressFormat mCompressFormat = DEFAULT_COMPRESS_FORMAT;
     private int mCompressQuality = DEFAULT_COMPRESS_QUALITY;
@@ -312,6 +313,7 @@ public class UCropActivity extends AppCompatActivity {
             mCamera.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    isPhotoRemoved = false;
                     Intent intent = new Intent();
                     setResult(UCrop.START_CAMERA,intent);
                     finish();
@@ -322,6 +324,7 @@ public class UCropActivity extends AppCompatActivity {
             mGallery.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    isPhotoRemoved = false;
                     Intent intent = new Intent();
                     setResult(UCrop.START_GALLERY,intent);
                     finish();
@@ -332,9 +335,11 @@ public class UCropActivity extends AppCompatActivity {
             mTrash.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent();
-                    setResult(UCrop.DELETE_GALLERY,intent);
-                    finish();
+                    //UCrop.EXTRA_OUTPUT_URI = null
+                    isPhotoRemoved = true;
+                    mGestureCropImageView.setVisibility(View.GONE);
+
+
                 }
             });
 
@@ -352,11 +357,6 @@ public class UCropActivity extends AppCompatActivity {
         }
     }
 
-    public void ucropCamera() {
-    }
-
-    public void ucropGallery() {
-    }
 
 
     /**
@@ -648,6 +648,9 @@ public class UCropActivity extends AppCompatActivity {
     }
 
     protected void setResultUri(Uri uri, float resultAspectRatio, int offsetX, int offsetY, int imageWidth, int imageHeight) {
+        if (isPhotoRemoved = true){
+            setResult(UCrop.DELETE_GALLERY,new Intent());
+        } else{
         setResult(RESULT_OK, new Intent()
                 .putExtra(UCrop.EXTRA_OUTPUT_URI, uri)
                 .putExtra(UCrop.EXTRA_OUTPUT_CROP_ASPECT_RATIO, resultAspectRatio)
@@ -655,7 +658,7 @@ public class UCropActivity extends AppCompatActivity {
                 .putExtra(UCrop.EXTRA_OUTPUT_IMAGE_HEIGHT, imageHeight)
                 .putExtra(UCrop.EXTRA_OUTPUT_OFFSET_X, offsetX)
                 .putExtra(UCrop.EXTRA_OUTPUT_OFFSET_Y, offsetY)
-        );
+        );}
     }
 
     protected void setResultError(Throwable throwable) {
@@ -664,91 +667,13 @@ public class UCropActivity extends AppCompatActivity {
 
 
 
-    private void requestCameraPermission() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                startCamera();
-            } else {
-                requestCameraPermission();
-            }
-        } else {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST_CAMERA);
-        }
 
 
-    }
 
 
-    private void startCamera() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, CAMERA);
-        }
-    }
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (data != null && resultCode == RESULT_OK) {
-            if (requestCode == PICK_IMAGE || requestCode == CAMERA) {
-                finish(); // finish old crop
-                Uri sourceuri = data.getData();
-                String fileUri = (Calendar.getInstance().getTimeInMillis()) + ".png";
-                UCrop ucrop = UCrop.of(sourceuri, Uri.fromFile(new File(Environment.getExternalStorageDirectory(), fileUri)));
-                ucrop.withAspectRatio(1024, 506)
-                        .withOptions(createOptions())
-                        .start(this);
 
 
-            }
-        }
-    }
 
-    private UCrop.Options createOptions() {
-
-        UCrop.Options options = new UCrop.Options();
-        options.setAllowedGestures(UCropActivity.SCALE, UCropActivity.NONE, UCropActivity.ALL);
-        options.setToolbarColor(ContextCompat.getColor(this, R.color.ucrop_rouge));
-        options.setStatusBarColor(ContextCompat.getColor(this, R.color.ucrop_rougeFonce));
-        options.setActiveWidgetColor(ContextCompat.getColor(this, R.color.ucrop_rouge));
-        options.setShowCropGrid(false);
-        options.setToolbarCancelDrawable(R.mipmap.back_arrow);
-        options.setToolbarCropDrawable(R.mipmap.crop_save_icon);
-
-        return options;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    private void requestGalleryPermission() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                startGallery();
-            } else {
-                requestGalleryPermission();
-            }
-        } else {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_GALLERY);
-        }
-
-
-    }
-
-
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    private void startGallery() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT)
-                .setType("image/*")
-                .addCategory(Intent.CATEGORY_OPENABLE);
-
-        String[] mimeTypes = {"image/jpeg","image/png"};
-
-        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-        if(intent.resolveActivity(getPackageManager()) != null) {
-            //startActivityForResult(this, Intent.createChooser(intent, getString(R.string.ucrop_label_select_picture)), PICK_IMAGE);
-            startActivityForResult(intent, PICK_IMAGE);
-        }
-        
-    }
 
 
 }
