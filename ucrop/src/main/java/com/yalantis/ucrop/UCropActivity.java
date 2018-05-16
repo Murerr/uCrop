@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
@@ -116,6 +117,7 @@ public class UCropActivity extends AppCompatActivity {
     private List<ViewGroup> mCropAspectRatioViews = new ArrayList<>();
     private TextView mTextViewRotateAngle, mTextViewScalePercent;
     private View mBlockingView;
+    private ImageView editImageView;
 
 
     private Bitmap.CompressFormat mCompressFormat = DEFAULT_COMPRESS_FORMAT;
@@ -345,11 +347,18 @@ public class UCropActivity extends AppCompatActivity {
                     //UCrop.EXTRA_OUTPUT_URI = null
                     ISPHOTOREMOVED = true;
                     mGestureCropImageView.setVisibility(View.GONE);
+                    mOverlayView.setVisibility(View.GONE);
+                    findViewById(R.id.ucrop_frame).setBackgroundColor(Color.WHITE); // inside cadre
+                    findViewById(R.id.display_options).setVisibility(View.VISIBLE);
+                    //mUCropView.setBackgroundColor(Color.WHITE); // image rognage
+                    //editImageView.setImageResource(R.drawable.ic_settings);
                     mWrapperStateRotate.setVisibility(View.GONE);
                     mTrash.setVisibility(View.GONE);
-                    CharSequence text = "Photo supprimée,\n Veuillez selectionner une image avec les commandes ci-dessous";
-                    Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+                    findViewById(R.id.image_view_logo).setBackgroundColor(Color.WHITE);
 
+
+                    CharSequence text = "Photo supprimée, Veuillez selectionner une image avec les commandes ci-dessous";
+                    Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
 
                 }
             });
@@ -406,7 +415,7 @@ public class UCropActivity extends AppCompatActivity {
         mGestureCropImageView.setTransformImageListener(mImageListener);
 
         ((ImageView) findViewById(R.id.image_view_logo)).setColorFilter(mLogoColor, PorterDuff.Mode.SRC_ATOP);
-
+        ImageView editImageView =findViewById(R.id.image_view_logo);
         findViewById(R.id.ucrop_frame).setBackgroundColor(mRootViewBackgroundColor);
     }
 

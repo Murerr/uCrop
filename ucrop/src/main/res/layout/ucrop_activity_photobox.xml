@@ -46,6 +46,24 @@
             android:layout_height="match_parent"
             android:alpha="0" />
 
+
+
+
     </FrameLayout>
+
+    <TextView
+        android:id="@+id/display_options"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="48dp"
+        android:layout_marginRight="48dp"
+        android:layout_marginBottom="125dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:text="Photo supprimée,\nVeuillez selectionner une image avec les commandes ci-dessous\n↓↓↓"
+        android:textSize="13dp"
+        android:visibility="gone" />
 
 </RelativeLayout>

@@ -25,6 +25,7 @@
     <color name="ucrop_orange">#d4a40c </color>
     <color name="ucrop_gris">#888888</color>
     <color name="ucrop_grisFonce">#AFAFAF</color>
+    <color name="ucrop_blanc">#FFFFFF</color>
 
 
 </resources>
