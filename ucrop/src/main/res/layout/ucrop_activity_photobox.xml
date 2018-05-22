@@ -62,7 +62,7 @@
         android:layout_marginBottom="125dp"
         android:textAlignment="center"
         android:gravity="center"
-        android:text="Photo supprimée,\nVeuillez selectionner une image avec les commandes ci-dessous\n↓↓↓"
+        android:text="Pas de photo.\nVous pouvez en choisir une avec les commandes ci-dessous."
         android:textSize="13dp"
         android:visibility="gone" />
 

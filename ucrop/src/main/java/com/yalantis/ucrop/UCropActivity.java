@@ -350,16 +350,12 @@ public class UCropActivity extends AppCompatActivity {
                     mOverlayView.setVisibility(View.GONE);
                     findViewById(R.id.ucrop_frame).setBackgroundColor(Color.WHITE); // inside cadre
                     findViewById(R.id.display_options).setVisibility(View.VISIBLE);
-                    //mUCropView.setBackgroundColor(Color.WHITE); // image rognage
+                    mUCropView.setVisibility(View.GONE); // image rognage
                     //editImageView.setImageResource(R.drawable.ic_settings);
                     mWrapperStateRotate.setVisibility(View.GONE);
                     mTrash.setVisibility(View.GONE);
-                    findViewById(R.id.image_view_logo).setBackgroundColor(Color.WHITE);
-
-
-                    CharSequence text = "Photo supprimée, Veuillez selectionner une image avec les commandes ci-dessous";
-                    Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
-
+                    ImageView imv = (ImageView) findViewById(R.id.image_view_logo);
+                    imv.setImageResource(R.drawable.ic_image);
                 }
             });
 
@@ -686,16 +682,5 @@ public class UCropActivity extends AppCompatActivity {
     protected void setResultError(Throwable throwable) {
         setResult(UCrop.RESULT_ERROR, new Intent().putExtra(UCrop.EXTRA_ERROR, throwable));
     }
-
-
-
-
-
-
-
-
-
-
-
 
 }
