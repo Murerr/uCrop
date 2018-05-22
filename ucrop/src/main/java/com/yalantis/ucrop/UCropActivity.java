@@ -1,4 +1,5 @@
 package com.yalantis.ucrop;
+
 import android.content.pm.PackageManager;
 import android.Manifest;
 import android.annotation.TargetApi;
@@ -78,6 +79,7 @@ public class UCropActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_GALLERY = 202;
     private static final int CAMERA = 1;
     private static final int PICK_IMAGE = 2;
+
     @IntDef({NONE, SCALE, ROTATE, ALL})
     @Retention(RetentionPolicy.SOURCE)
     public @interface GestureTypes {
@@ -112,7 +114,7 @@ public class UCropActivity extends AppCompatActivity {
     private UCropView mUCropView;
     private GestureCropImageView mGestureCropImageView;
     private OverlayView mOverlayView;
-    private ViewGroup mWrapperStateAspectRatio, mWrapperStateRotate, mWrapperStateScale , mCamera, mGallery, mTrash;
+    private ViewGroup mWrapperStateAspectRatio, mWrapperStateRotate, mWrapperStateScale, mCamera, mGallery, mTrash;
     private ViewGroup mLayoutAspectRatio, mLayoutRotate, mLayoutScale;
     private List<ViewGroup> mCropAspectRatioViews = new ArrayList<>();
     private TextView mTextViewRotateAngle, mTextViewScalePercent;
@@ -213,6 +215,7 @@ public class UCropActivity extends AppCompatActivity {
             finish();
         }
     }
+
     /**
      * This method extracts {@link com.yalantis.ucrop.UCrop.Options #optionsBundle} from incoming intent
      * and setups Activity, {@link OverlayView} and {@link CropImageView} properly.
@@ -313,7 +316,7 @@ public class UCropActivity extends AppCompatActivity {
                 }
             });
             /*
-            * close activity and start intent camera*/
+             * close activity and start intent camera*/
             mCamera = findViewById(R.id.camera);
             mCamera.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -322,7 +325,7 @@ public class UCropActivity extends AppCompatActivity {
                     mWrapperStateRotate.setVisibility(View.VISIBLE);
                     mTrash.setVisibility(View.VISIBLE);
                     Intent intent = new Intent();
-                    setResult(UCrop.START_CAMERA,intent);
+                    setResult(UCrop.START_CAMERA, intent);
                     finish();
                 }
             });
@@ -335,7 +338,7 @@ public class UCropActivity extends AppCompatActivity {
                     mWrapperStateRotate.setVisibility(View.VISIBLE);
                     mTrash.setVisibility(View.VISIBLE);
                     Intent intent = new Intent();
-                    setResult(UCrop.START_GALLERY,intent);
+                    setResult(UCrop.START_GALLERY, intent);
                     finish();
                 }
             });
@@ -374,7 +377,6 @@ public class UCropActivity extends AppCompatActivity {
     }
 
 
-
     /**
      * Configures and styles both status bar and toolbar.
      */
@@ -411,7 +413,7 @@ public class UCropActivity extends AppCompatActivity {
         mGestureCropImageView.setTransformImageListener(mImageListener);
 
         ((ImageView) findViewById(R.id.image_view_logo)).setColorFilter(mLogoColor, PorterDuff.Mode.SRC_ATOP);
-        ImageView editImageView =findViewById(R.id.image_view_logo);
+        ImageView editImageView = findViewById(R.id.image_view_logo);
         findViewById(R.id.ucrop_frame).setBackgroundColor(mRootViewBackgroundColor);
     }
 
@@ -664,19 +666,19 @@ public class UCropActivity extends AppCompatActivity {
     }
 
     protected void setResultUri(Uri uri, float resultAspectRatio, int offsetX, int offsetY, int imageWidth, int imageHeight) {
-        if (ISPHOTOREMOVED){
-            setResult(UCrop.DELETE_GALLERY,new Intent());
+        if (ISPHOTOREMOVED) {
+            setResult(UCrop.DELETE_GALLERY, new Intent());
             finish(); // change?
+        } else if (!ISPHOTOREMOVED) {
+            setResult(RESULT_OK, new Intent()
+                    .putExtra(UCrop.EXTRA_OUTPUT_URI, uri)
+                    .putExtra(UCrop.EXTRA_OUTPUT_CROP_ASPECT_RATIO, resultAspectRatio)
+                    .putExtra(UCrop.EXTRA_OUTPUT_IMAGE_WIDTH, imageWidth)
+                    .putExtra(UCrop.EXTRA_OUTPUT_IMAGE_HEIGHT, imageHeight)
+                    .putExtra(UCrop.EXTRA_OUTPUT_OFFSET_X, offsetX)
+                    .putExtra(UCrop.EXTRA_OUTPUT_OFFSET_Y, offsetY)
+            );
         }
-        else if (!ISPHOTOREMOVED){
-        setResult(RESULT_OK, new Intent()
-                .putExtra(UCrop.EXTRA_OUTPUT_URI, uri)
-                .putExtra(UCrop.EXTRA_OUTPUT_CROP_ASPECT_RATIO, resultAspectRatio)
-                .putExtra(UCrop.EXTRA_OUTPUT_IMAGE_WIDTH, imageWidth)
-                .putExtra(UCrop.EXTRA_OUTPUT_IMAGE_HEIGHT, imageHeight)
-                .putExtra(UCrop.EXTRA_OUTPUT_OFFSET_X, offsetX)
-                .putExtra(UCrop.EXTRA_OUTPUT_OFFSET_Y, offsetY)
-        );}
     }
 
     protected void setResultError(Throwable throwable) {
